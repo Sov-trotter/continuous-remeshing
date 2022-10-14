@@ -1,6 +1,7 @@
 from matplotlib import image
 import nvdiffrast.torch as dr
 import torch
+from typing import Tuple
 
 def _warmup(glctx):
     #windows workaround for https://github.com/NVlabs/nvdiffrast/issues/59
@@ -18,7 +19,7 @@ class NormalsRenderer:
             self,
             mv: torch.Tensor, #C,4,4
             proj: torch.Tensor, #C,4,4
-            image_size: tuple[int,int],
+            image_size: Tuple[int,int],
             ):
         self._mvp = proj @ mv #C,4,4
         self._image_size = image_size

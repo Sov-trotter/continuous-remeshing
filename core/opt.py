@@ -3,6 +3,8 @@ import time
 import torch
 import torch_scatter
 from core.remesh import calc_edge_length, calc_edges, calc_face_collapses, calc_face_normals, calc_vertex_normals, collapse_edges, flip_edges, pack, prepend_dummies, remove_dummies, split_edges
+from typing import Tuple
+
 
 @torch.no_grad()
 def remesh(
@@ -178,7 +180,7 @@ class MeshOptimizer:
             self._ref_len *= len_change
             self._ref_len.clamp_(*self._edge_len_lims)
 
-    def remesh(self, flip:bool=True)->tuple[torch.Tensor,torch.Tensor]:
+    def remesh(self, flip:bool=True)-> Tuple[torch.Tensor,torch.Tensor]:
         min_edge_len = self._ref_len * (1 - self._edge_len_tol)
         max_edge_len = self._ref_len * (1 + self._edge_len_tol)
             
